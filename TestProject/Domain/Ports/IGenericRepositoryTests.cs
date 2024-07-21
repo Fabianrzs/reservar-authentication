@@ -101,7 +101,7 @@ public class IGenericRepositoryTests
     public async Task GetByIdAsync_WithValidId_ReturnsEntity()
     {
         Guid entityId = Guid.NewGuid();
-        EntityBase expectedEntity = new (){ Id = entityId }; 
+        EntityBase expectedEntity = new() { Id = entityId };
 
         _mockRepository.Setup(repo => repo.GetByIdAsync(entityId))
                        .ReturnsAsync(expectedEntity);
@@ -119,9 +119,9 @@ public class IGenericRepositoryTests
     {
 
         List<EntityBase> expectedEntities = [
-                new () { Id = Guid.NewGuid() },
-                new () { Id = Guid.NewGuid() },
-                new () { Id = Guid.NewGuid() }
+                new() { Id = Guid.NewGuid() },
+            new() { Id = Guid.NewGuid() },
+            new() { Id = Guid.NewGuid() }
             ];
 
         _mockRepository.Setup(repo => repo.GetAllAsync())
@@ -132,6 +132,47 @@ public class IGenericRepositoryTests
         Assert.That(result, Is.Not.Null);
         Assert.That(result.Count, Is.EqualTo(expectedEntities.Count));
         _mockRepository.Verify(repo => repo.GetAllAsync(), Times.Once);
+    }
+
+
+    [Test]
+    public async Task GetByFilterAsync_WithValidFilter_ReturnsEntity()
+    {
+        Guid entityId = Guid.NewGuid();
+        EntityBase filterEntity = new (){ Id = entityId }; 
+        EntityBase expectedEntity = new (){ Id = entityId }; 
+
+        _mockRepository.Setup(repo => repo.GetByFilterAsync(filterEntity))
+                       .ReturnsAsync(expectedEntity);
+
+        var result = await _mockRepository.Object.GetByFilterAsync(filterEntity);
+
+
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.Id, Is.EqualTo(filterEntity.Id));
+        _mockRepository.Verify(repo => repo.GetByFilterAsync(filterEntity), Times.Once);
+    }
+
+    [Test]
+    public async Task GetAllFilterAsync_ReturnsAllFilterEntities()
+    {
+        Guid entityId = Guid.NewGuid();
+        EntityBase filterEntity = new() { Id = entityId };
+
+        List<EntityBase> expectedEntities = [
+                new () { Id = entityId },
+                new () { Id = entityId },
+                new () { Id = entityId }
+            ];
+
+        _mockRepository.Setup(repo => repo.GetAllFilterAsync(filterEntity))
+                       .ReturnsAsync(expectedEntities);
+
+        var result = await _mockRepository.Object.GetAllFilterAsync(filterEntity);
+
+        Assert.That(result, Is.Not.Null);
+        Assert.That(result.Count, Is.EqualTo(expectedEntities.Count));
+        _mockRepository.Verify(repo => repo.GetAllFilterAsync(filterEntity), Times.Once);
     }
 
     [Test]
