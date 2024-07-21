@@ -57,7 +57,6 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Scripts" />
-    <Folder Include="Security" />
     <Folder Include="Tables" />
     <Folder Include="Sp" />
     <Folder Include="Sp\User" />
@@ -80,5 +79,8 @@
     <Build Include="Sp\Role\Delete_Role.sql" />
     <Build Include="Sp\Role\Select_Role.sql" />
     <Build Include="Sp\Role\Update_Role.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
   </ItemGroup>
 </Project>
