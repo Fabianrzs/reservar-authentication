@@ -60,5 +60,25 @@
     <Folder Include="Security" />
     <Folder Include="Tables" />
     <Folder Include="Sp" />
+    <Folder Include="Sp\User" />
+    <Folder Include="Sp\Session" />
+    <Folder Include="Sp\Role" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Tables\Role.sql" />
+    <Build Include="Tables\User.sql" />
+    <Build Include="Tables\Session.sql" />
+    <Build Include="Sp\User\Select_User.sql" />
+    <Build Include="Sp\User\Add_User.sql" />
+    <Build Include="Sp\User\Update_User.sql" />
+    <Build Include="Sp\User\Delete_User.sql" />
+    <Build Include="Sp\Session\Select_Session.sql" />
+    <Build Include="Sp\Session\Add_Session.sql" />
+    <Build Include="Sp\Session\Update_Session.sql" />
+    <Build Include="Sp\Session\Delete_Session.sql" />
+    <Build Include="Sp\Role\Add_Role.sql" />
+    <Build Include="Sp\Role\Delete_Role.sql" />
+    <Build Include="Sp\Role\Select_Role.sql" />
+    <Build Include="Sp\Role\Update_Role.sql" />
   </ItemGroup>
 </Project>
