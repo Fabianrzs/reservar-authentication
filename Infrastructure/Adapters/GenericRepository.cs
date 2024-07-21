@@ -5,10 +5,12 @@ using System.Data;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using static Dapper.SqlMapper;
 
 namespace Infrastructura.Adapters;
 
-public class GenericRepository<E>(IDbConnection dbConnection, IDbTransaction dbTransaction) : IGenericRepository<E> where E : class, IEntityBase<Guid>
+public class GenericRepository<E>(IDbConnection dbConnection, IDbTransaction dbTransaction) 
+    : IGenericRepository<E> where E : class, IEntityBase<Guid>
 {
     private readonly IDbConnection _dbConnection = dbConnection;
     private readonly IDbTransaction _dbTransaction = dbTransaction;
@@ -20,10 +22,26 @@ public class GenericRepository<E>(IDbConnection dbConnection, IDbTransaction dbT
             _dbTransaction, commandType: CommandType.StoredProcedure))!;
     }
 
+    public async Task<E> GetByFilterAsync(E filter)
+    {
+        var spName = $"Select_{typeof(E).Name}";
+        var parameters = GetParameters(filter);
+        return (await _dbConnection.QueryFirstOrDefaultAsync<E>(spName, parameters,
+            _dbTransaction, commandType: CommandType.StoredProcedure))!;
+    }
+
     public async Task<IEnumerable<E>> GetAllAsync()
     {
         var spName = $"Select_{typeof(E).Name}";
         return await _dbConnection.QueryAsync<E>(spName, null, 
+            _dbTransaction, commandType: CommandType.StoredProcedure);
+    }
+
+    public async Task<IEnumerable<E>> GetAllFilterAsync(E filter)
+    {
+        var spName = $"Select_{typeof(E).Name}";
+        var parameters = GetParameters(filter);
+        return await _dbConnection.QueryAsync<E>(spName, parameters,
             _dbTransaction, commandType: CommandType.StoredProcedure);
     }
 

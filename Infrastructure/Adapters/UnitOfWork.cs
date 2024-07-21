@@ -1,5 +1,6 @@
 ﻿using Domain.Ports;
 using Domain.Ports.Repository;
+using Infrastructura.Adapters.Repository;
 using System.Data;
 
 namespace Infrastructura.Adapters;
@@ -11,12 +12,14 @@ public class UnitOfWork: IUnitOfWork
     public IAuthRepository AuthRepository { get; }
     public ISessionRepository SessionRepository { get; }
 
+
     public UnitOfWork(IDbConnection dbConnection)
     {
         _dbConnection = dbConnection;
         _dbConnection.Open();
         _dbTransaction = _dbConnection.BeginTransaction();
-        //ProductRepository = new ProductRepository(_dbConnection, _dbTransaction);
+        AuthRepository = new AuthRepository(_dbConnection, _dbTransaction);
+        SessionRepository = new SessionRepository(_dbConnection, _dbTransaction);
     }
 
     //public IProductRepository ProductRepository { get; }
