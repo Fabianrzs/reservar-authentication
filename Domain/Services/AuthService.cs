@@ -1,19 +1,20 @@
-﻿
+﻿using Notes.Domain.Services.Base;
 using Domain.Entities.Security;
 using Domain.Exceptions;
 using Domain.Ports;
-using Notes.Domain.Services.Base;
 
 namespace Domain.Services;
 [DomainService]
 public class AuthService(IUnitOfWork _unitOfWork)
 {
-    public virtual async Task<User> SingIn(string userName, string password)
+    public async Task<User> SingIn(string userName, string password)
     {
 		try
 		{
 			var user = await _unitOfWork.AuthRepository.ValidateUserCredentials(userName, password) 
                 ?? throw new FailCredentialsException("UserName or Password incorrect");
+
+            user.Role = await _unitOfWork.RoleRepository.GetRoleById(user.RoleId) ?? throw new NoContentException("Role No Defined"); ;
 
             await _unitOfWork.SessionRepository.CreateUserSession(
                 new Session { Active = true, UserId = user.Id, 
