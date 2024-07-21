@@ -1,3 +1,4 @@
-﻿global using MediatR;
+﻿/*global using MediatR;
 global using AutoMapper;
 global using FluentValidation;
+*/
