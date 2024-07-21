@@ -6,7 +6,7 @@
     [RoleId] UNIQUEIDENTIFIER NULL, 
     [CreatedOn] DATETIME NOT NULL DEFAULT GETDATE(), 
     [LastModifiedOn] DATETIME NULL, 
-    [State] INT NOT NULL DEFAULT 1
+    [State] BIT NOT NULL DEFAULT 1
     
     CONSTRAINT FK_User_Role FOREIGN KEY (RoleId) REFERENCES [dbo].[Role](Id)
 

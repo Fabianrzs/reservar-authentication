@@ -5,5 +5,5 @@
     [Code] VARCHAR(50) NOT NULL, 
     [CreatedOn] DATETIME NOT NULL DEFAULT GETDATE(), 
     [LastModifiedOn] DATETIME NULL, 
-    [State] INT NOT NULL DEFAULT 1
+    [State] BIT NOT NULL DEFAULT 1
 )

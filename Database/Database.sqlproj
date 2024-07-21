@@ -79,6 +79,7 @@
     <Build Include="Sp\Role\Delete_Role.sql" />
     <Build Include="Sp\Role\Select_Role.sql" />
     <Build Include="Sp\Role\Update_Role.sql" />
+    <Build Include="Tables\PasswordResetRequest.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
