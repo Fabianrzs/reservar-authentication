@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Data.SqlClient;
 using System.Data;
 using Infrastructura.Adapters;
-using Infrastructura.Context;
 
 namespace Authentication.Infrastrunture.Extensions;
 
@@ -15,7 +14,6 @@ public static class PersistenceExtension
         svc.AddTransient<IDbConnection>((sp) => new SqlConnection(config.GetConnectionString("DefaultConnection")));
         svc.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         svc.AddScoped<IUnitOfWork, UnitOfWork>();
-        svc.AddTransient<DatabaseMigrator>();
         return svc;
     }
 }

@@ -6,7 +6,7 @@ namespace Infrastrunture.Extensions;
 public static class CorsExtensions
 {
     private static readonly string corsPolicy = "CorsPolicy";
-    public static IServiceCollection AddCorss(this IServiceCollection services)
+    public static IServiceCollection AddCorsPolicy(this IServiceCollection services)
     {
         services.AddCors(options =>
          {
@@ -21,7 +21,7 @@ public static class CorsExtensions
         return services;
     }
 
-    public static IApplicationBuilder UseCors(this IApplicationBuilder app)
+    public static IApplicationBuilder UseCorsPolicy(this IApplicationBuilder app)
     {
         app.UseCors(corsPolicy);
         return app;
