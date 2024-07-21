@@ -77,7 +77,7 @@ public class ExceptionMiddleware(RequestDelegate _next, ILogger<ExceptionMiddlew
     private static async Task SendResult(HttpContext context, Exception exception, HttpStatusCode code)
     {
         var message = GetMessage(exception);
-        var response = new ServiceResponse<object>(message, exception, false);
+        var response = new ServiceResponse<object>(message, exception.StackTrace!, false);
         var jsonReponse = JsonSerializer.Serialize(response);
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = (int)code;

@@ -7,26 +7,31 @@ namespace Domain.Services;
 [DomainService]
 public class AuthService(IUnitOfWork _unitOfWork)
 {
-    public async Task<User> SingIn(string userName, string password)
+    public async Task<User> SingIn(string userName, string password, Guid sessionId)
     {
 		try
 		{
 			var user = await _unitOfWork.AuthRepository.ValidateUserCredentials(userName, password) 
                 ?? throw new FailCredentialsException("UserName or Password incorrect");
+            var role = await _unitOfWork.RoleRepository.GetRoleById(user.RoleId) 
+                ?? throw new NoContentException("Role No Defined");
+            user.Role = role;
 
-            user.Role = await _unitOfWork.RoleRepository.GetRoleById(user.RoleId) ?? throw new NoContentException("Role No Defined"); ;
+            var session = new Session
+            {
+                Active = true,  UserId = user.Id,
+                StartTime = DateTime.UtcNow, Id = sessionId,
+            };
+            
+            await _unitOfWork.SessionRepository.CreateUserSession(session);
 
-            await _unitOfWork.SessionRepository.CreateUserSession(
-                new Session { Active = true, UserId = user.Id, 
-                    StartTime = DateTime.UtcNow, Id = new Guid()});
-
-            await _unitOfWork.SaveChangesAsync();
+            _unitOfWork.SaveChanges();
 			return user;
         }
-		catch
+		catch(Exception e)
 		{
 			_unitOfWork.Dispose();
-            throw;
+            throw new Exception(e.Message);
         }
     }
 }

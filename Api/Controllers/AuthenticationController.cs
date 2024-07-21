@@ -10,9 +10,9 @@ namespace Api.Controllers
     {
 
         [HttpPost(Name = "SingIn")]
-        public IActionResult SingIn(AuthenticationCommand authenticationCommand)
+        public async Task<ActionResult> SingIn(AuthenticationCommand authenticationCommand)
         {
-            return Ok(_mediator.Send(authenticationCommand));
+            return Ok(await _mediator.Send(authenticationCommand));
         }
     }
 }

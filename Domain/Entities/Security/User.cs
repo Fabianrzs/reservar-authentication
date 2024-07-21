@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Base;
+using System.Text.Json.Serialization;
 
 namespace Domain.Entities.Security;
 

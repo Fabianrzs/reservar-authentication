@@ -3,6 +3,6 @@
 namespace Domain.Ports;
 public interface IJwtServices
 {
-    string GenerateAccessToken(User user);
-    string GenerateRefreshToken(User user);
+    string GenerateAccessToken(User user, Guid sessionId);
+    string GenerateRefreshToken(User user, Guid sessionId);
 }

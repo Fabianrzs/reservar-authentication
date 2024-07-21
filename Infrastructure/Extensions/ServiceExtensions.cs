@@ -1,4 +1,6 @@
-﻿using Infrastructura;
+﻿using Domain.Ports;
+using Infrastructura;
+using Infrastrunture.Adapters.Jwt;
 using Microsoft.Extensions.DependencyInjection;
 using Notes.Domain.Services.Base;
 using System.Reflection;
@@ -7,7 +9,7 @@ namespace Infrastrunture.Extensions;
 
 public static class ServiceExtensions
 {
-    public static IServiceCollection AddDomainServices(this IServiceCollection svc)
+    public static IServiceCollection AddDomainServices(this IServiceCollection services)
     {
         var _services = new List<Type>();
 
@@ -16,9 +18,9 @@ public static class ServiceExtensions
         _services.AddRange(assembly.GetTypes()
                .Where(p => p.CustomAttributes.Any(x => x.AttributeType 
                == typeof(DomainServiceAttribute))));
+        services.AddTransient<IJwtServices, JwtService>();
+        _services.ForEach(serviceType => services.AddTransient(serviceType));
 
-        _services.ForEach(serviceType => svc.AddTransient(serviceType));
-
-        return svc;
+        return services;
     }
 }

@@ -25,14 +25,11 @@ public class UnitOfWork: IUnitOfWork, IDisposable
         RoleRepository = new RoleRepository(_dbConnection, _dbTransaction);
     }
 
-    //public IProductRepository ProductRepository { get; }
-
-    public async Task<int> SaveChangesAsync()
+    public void SaveChanges()
     {
         try
         {
             _dbTransaction.Commit();
-            return await Task.FromResult(1);
         }
         catch
         {

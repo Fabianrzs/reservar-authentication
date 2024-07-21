@@ -7,6 +7,6 @@ public interface IUnitOfWork
     IAuthRepository AuthRepository { get; }
     ISessionRepository SessionRepository { get; }
     IRoleRepository RoleRepository { get; }
-    Task<int> SaveChangesAsync();
+    void SaveChanges();
     void Dispose();
 }

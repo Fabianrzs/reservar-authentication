@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE Add_Session
     @Id UNIQUEIDENTIFIER,
     @StartTime DATETIME,
-    @EndTime DATETIME,
+    @EndTime DATETIME = NULL,
     @UserId UNIQUEIDENTIFIER,
     @Active BIT
 AS

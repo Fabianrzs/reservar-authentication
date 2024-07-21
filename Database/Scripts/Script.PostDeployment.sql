@@ -24,8 +24,8 @@ BEGIN
 
         INSERT INTO [dbo].[User] (Id, UserName, [Password], RoleId, CreatedOn, [State])
         VALUES
-            (NEWID(), 'Uafj6cA0vMLBEGdP23UyVfRefWfRD8HSik8Vc2eguYdeZ6xmKtg6Bbkvbz/PtXe96SS9fYA5/WZ6ba9Z9pB3Gw==', 
-            'Dy4RAGWJLT6dbXXAIAx8i7ows/m+JUNFFJbyQ1TZdIE=', 
+            (NEWID(), 'AnGJzG9kTSXJwfqSS+tfrfKnqs5CKOZI0RmDkHMJWYJUd8/3h5HpZDQdF7a4m3CH', 
+            'TJuMSK0zrZBIMc93Q9BKyw==', 
             (SELECT Id FROM [dbo].[Role] WHERE Code = 'ADMIN'),  GETDATE(),  1);
 
         COMMIT TRANSACTION;

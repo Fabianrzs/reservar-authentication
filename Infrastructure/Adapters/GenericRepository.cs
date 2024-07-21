@@ -3,9 +3,7 @@ using Domain.Ports;
 using Dapper;
 using System.Data;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Text;
-using static Dapper.SqlMapper;
 
 namespace Infrastructura.Adapters;
 
@@ -26,8 +24,9 @@ public class GenericRepository<E>(IDbConnection dbConnection, IDbTransaction dbT
     {
         var spName = $"Select_{typeof(E).Name}";
         var parameters = GetParameters(filter);
-        return (await _dbConnection.QueryFirstOrDefaultAsync<E>(spName, parameters,
+        var result = (await _dbConnection.QueryFirstOrDefaultAsync<E>(spName, parameters,
             _dbTransaction, commandType: CommandType.StoredProcedure))!;
+        return result;
     }
 
     public async Task<IEnumerable<E>> GetAllAsync()
@@ -41,8 +40,9 @@ public class GenericRepository<E>(IDbConnection dbConnection, IDbTransaction dbT
     {
         var spName = $"Select_{typeof(E).Name}";
         var parameters = GetParameters(filter);
-        return await _dbConnection.QueryAsync<E>(spName, parameters,
+        var result = await _dbConnection.QueryAsync<E>(spName, parameters,
             _dbTransaction, commandType: CommandType.StoredProcedure);
+        return result;
     }
 
     public async Task<bool> AddAsync(E entity)
@@ -97,9 +97,16 @@ public class GenericRepository<E>(IDbConnection dbConnection, IDbTransaction dbT
     private static DynamicParameters GetParameters(E entity)
     {
         var parameters = new DynamicParameters();
-        foreach (PropertyInfo property in typeof(E).GetProperties())
+        foreach (var property in typeof(E).GetProperties())
         {
-            parameters.Add($"@{property.Name}", property.GetValue(entity));
+            if (IsSupportedSqlType(property.PropertyType))
+            {
+                var value = property.GetValue(entity);
+                if (value != null && !IsDefaultValue(value))
+                {
+                    parameters.Add($"@{property.Name}", value);
+                }
+            }
         }
         return parameters;
     }
@@ -114,5 +121,14 @@ public class GenericRepository<E>(IDbConnection dbConnection, IDbTransaction dbT
         query.Replace("OrElse", "OR");
         return $"SELECT * FROM {typeof(E).Name} WHERE {query}";
     }
+    private static bool IsSupportedSqlType(Type type) =>
+     type.IsPrimitive || type.IsEnum || type == typeof(string) ||
+     type == typeof(decimal) || type == typeof(DateTime) ||
+     type == typeof(Guid) || type == typeof(TimeSpan) ||
+     type == typeof(byte[]);
 
+    private static bool IsDefaultValue(object value) =>
+        value == null ||
+        (value.GetType().IsValueType &&
+        value.Equals(Activator.CreateInstance(value.GetType())));
 }

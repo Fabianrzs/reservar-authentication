@@ -12,11 +12,12 @@ public static class Startup
 {
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration config)
     {
-        services.AddMediator();
-        services.AddDomainServices();
         services.AddPesistence(config);
-        services.AddValidator();
+        services.AddDomainServices();
+        services.AddJwtSettings(config);
+        services.AddMediator();
         services.AddMapper();
+        services.AddValidator();
         services.AddSwagger();
         services.AddCorsPolicy();
     }
