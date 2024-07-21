@@ -7,10 +7,6 @@ namespace Infrastructura.Adapters.Repository;
 public class AuthRepository(IDbConnection dbConnection, IDbTransaction dbTransaction)
     : GenericRepository<User>(dbConnection, dbTransaction), IAuthRepository
 {
-
-        /*Expression<Func<User, bool>> filter = (u => u.Password == password && u.UserName == email);
-        return await this.GetFilter(filter);*/
-
     public async Task<User> ValidateUserCredentials(string email, string password) {
         return await GetByFilterAsync(new User { Password = password, UserName = email });
     }
@@ -19,7 +15,12 @@ public class AuthRepository(IDbConnection dbConnection, IDbTransaction dbTransac
         throw new NotImplementedException();
     }
 
-    public async Task<User> ChangePassword(Guid id, string password)
+    public Task<User> ChangePassword(Guid id, string currentPassword, string newPassword)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<User> RecorveryPassword(Guid id, string password)
     {
         throw new NotImplementedException();
     }
@@ -44,3 +45,7 @@ public class AuthRepository(IDbConnection dbConnection, IDbTransaction dbTransac
         throw new NotImplementedException();
     }
 }
+
+/*Expression<Func<User, bool>> filter = (u => u.Password == password && u.UserName == email);
+       return await this.GetFilter(filter);*/
+

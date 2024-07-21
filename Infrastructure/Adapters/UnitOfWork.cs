@@ -5,7 +5,7 @@ using System.Data;
 
 namespace Infrastructura.Adapters;
 
-public class UnitOfWork: IUnitOfWork
+public class UnitOfWork: IUnitOfWork, IDisposable
 {
     private readonly IDbConnection _dbConnection;
     private IDbTransaction _dbTransaction;

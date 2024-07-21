@@ -2,7 +2,7 @@
 
 namespace Domain.Ports;
 
-public interface IUnitOfWork : IDisposable
+public interface IUnitOfWork
 {
     IAuthRepository AuthRepository { get; }
     ISessionRepository SessionRepository { get; }
