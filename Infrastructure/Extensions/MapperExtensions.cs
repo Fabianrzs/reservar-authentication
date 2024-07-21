@@ -8,7 +8,7 @@ public static class AutoMapperExtensions
 {
     public static IServiceCollection AddMapper(this IServiceCollection services)
     {
-        services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        services.AddAutoMapper(AppAssembly.ApplicationAssembly);
         return services;
     }
 }
