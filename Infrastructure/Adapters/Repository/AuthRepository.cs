@@ -7,10 +7,10 @@ namespace Infrastructura.Adapters.Repository;
 public class AuthRepository(IDbConnection dbConnection, IDbTransaction dbTransaction)
     : GenericRepository<User>(dbConnection, dbTransaction), IAuthRepository
 {
-    public async Task<User> ValidateUserCredentials(string email, string password) {
-        return await GetByFilterAsync(new User { Password = password, UserName = email });
+    public async Task<User> ValidateUserCredentials(string userName, string password) {
+        return await GetByFilterAsync(new User { Password = password, UserName = userName });
     }
-    public async Task<User> ChangeEmail(Guid id, string email)
+    public  Task<User> ChangeUserName(Guid id, string userName)
     {
         throw new NotImplementedException();
     }
@@ -20,32 +20,32 @@ public class AuthRepository(IDbConnection dbConnection, IDbTransaction dbTransac
         throw new NotImplementedException();
     }
 
-    public async Task<User> RecorveryPassword(Guid id, string password)
+    public Task<User> RecorveryPassword(Guid id, string password)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<User> CreateUserCredentials(User user)
+    public Task<User> CreateUserCredentials(User user)
     {
         throw new NotImplementedException();
     }
 
-    public async Task DeteleUserCredentials(Guid id)
+    public  Task DeteleUserCredentials(Guid id)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<User> GetUserCredentials(Guid id)
+    public  Task<User> GetUserCredentials(Guid id)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<User> ValidatePassword(Guid id, string password)
+    public  Task<User> ValidatePassword(Guid id, string password)
     {
         throw new NotImplementedException();
     }
 }
 
-/*Expression<Func<User, bool>> filter = (u => u.Password == password && u.UserName == email);
+/*Expression<Func<User, bool>> filter = (u => u.Password == password && u.UserName == userName);
        return await this.GetFilter(filter);*/
 

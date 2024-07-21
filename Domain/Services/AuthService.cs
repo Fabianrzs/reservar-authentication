@@ -8,7 +8,7 @@ namespace Domain.Services;
 [DomainService]
 public class AuthService(IUnitOfWork _unitOfWork)
 {
-    public async Task<User> SingIn(string userName, string password)
+    public virtual async Task<User> SingIn(string userName, string password)
     {
 		try
 		{
