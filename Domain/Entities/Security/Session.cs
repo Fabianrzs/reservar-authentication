@@ -1,9 +1,11 @@
 ﻿using Domain.Entities.Base;
+using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Entities.Security;
 
 public class Session: IEntityBase<Guid>
 {
+    [Key]
     public Guid Id { get; set; }
     public DateTime StartTime { get; set; }
     public DateTime EndTime { get; set; }
