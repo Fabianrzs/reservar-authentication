@@ -7,7 +7,7 @@ namespace Domain.Services;
 [DomainService]
 public class AuthService(IUnitOfWork _unitOfWork)
 {
-    public async Task<User> SingIn(string userName, string password, Guid sessionId)
+    public async Task<User> SignIn(string userName, string password, Guid sessionId)
     {
 		try
 		{
@@ -31,6 +31,48 @@ public class AuthService(IUnitOfWork _unitOfWork)
 		catch(Exception e)
 		{
 			_unitOfWork.Dispose();
+            throw new Exception(e.Message);
+        }
+    }
+
+    public async Task<User> SignUp(User user, string roleCode = "USER")
+    {
+        try
+        {
+
+            var findUser = await _unitOfWork.AuthRepository.GetUserCredentials(user.UserName);
+
+            if(findUser != null)
+            {
+                throw new DuplicateCredentialsException("Email Exist");
+            }
+
+            var role = await _unitOfWork.RoleRepository.GetRoleByCode(roleCode)
+                ?? throw new NoContentException("Role No Defined");
+
+            user.RoleId = role.Id;
+
+            await _unitOfWork.AuthRepository.CreateUserCredentials(user);
+
+            _unitOfWork.SaveChanges();
+            return user;
+        }
+        catch (Exception e)
+        {
+            _unitOfWork.Dispose();
+            throw new Exception(e.Message);
+        }
+    }
+
+    public async Task SignOut(Guid sessionId)
+    {
+        try
+        {
+            await _unitOfWork.SessionRepository.CloseUserSession(sessionId);
+        }
+        catch (Exception e)
+        {
+            _unitOfWork.Dispose();
             throw new Exception(e.Message);
         }
     }
