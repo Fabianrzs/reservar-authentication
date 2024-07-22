@@ -1,8 +1,8 @@
 ﻿using Application.UseCase.Security.Authentication.Dtos;
 using Domain.Entities.Base;
 
-namespace Application.UseCase.Security.Authentication.Commands;
+namespace Application.UseCase.Security.Authentication.Commands.SignOut;
 
-public record AuthenticationCommand(
-        string UserName, string Password
+public record SignOutCommand(
+        Guid SessionId
     ) : IRequest<ServiceResponse<AuthenticationDto>>;
