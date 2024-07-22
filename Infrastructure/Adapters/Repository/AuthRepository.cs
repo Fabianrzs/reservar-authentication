@@ -7,45 +7,39 @@ namespace Infrastructura.Adapters.Repository;
 public class AuthRepository(IDbConnection dbConnection, IDbTransaction dbTransaction)
     : GenericRepository<User>(dbConnection, dbTransaction), IAuthRepository
 {
+
+    public async Task<bool> CreateUserCredentials(User user)
+    {
+        return await AddAsync(user); 
+    }
     public async Task<User> ValidateUserCredentials(string userName, string password) {
         return await GetByFilterAsync(new User { Password = password, UserName = userName });
     }
-    public  Task<User> ChangeUserName(Guid id, string userName)
+
+    public async Task<User> GetUserCredentials(string userName)
     {
-        throw new NotImplementedException();
+        return await GetByFilterAsync(new User { UserName = userName });
+    }
+    public  Task<bool> ChangeUserName(Guid id, string userName)
+    {
+        return UpdateAsync(new User { Id = id, UserName = userName });
+
     }
 
-    public Task<User> ChangePassword(Guid id, string currentPassword, string newPassword)
+    public Task<bool> ChangePassword(Guid id, string newPassword)
     {
-        throw new NotImplementedException();
+        return UpdateAsync(new User { Id = id, Password = newPassword });
     }
 
-    public Task<User> RecorveryPassword(Guid id, string password)
+    public async Task<bool> DeteleUserCredentials(Guid id)
     {
-        throw new NotImplementedException();
+        return await DeleteAsync(id);
     }
 
-    public Task<User> CreateUserCredentials(User user)
+    public async Task<User> GetUserCredentials(Guid id)
     {
-        throw new NotImplementedException();
+        return await GetByIdAsync(id);
     }
 
-    public  Task DeteleUserCredentials(Guid id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public  Task<User> GetUserCredentials(Guid id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public  Task<User> ValidatePassword(Guid id, string password)
-    {
-        throw new NotImplementedException();
-    }
 }
-
-/*Expression<Func<User, bool>> filter = (u => u.Password == password && u.UserName == userName);
-       return await this.GetFilter(filter);*/
 

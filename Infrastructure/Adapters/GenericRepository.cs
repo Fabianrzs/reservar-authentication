@@ -129,6 +129,8 @@ public class GenericRepository<E>(IDbConnection dbConnection, IDbTransaction dbT
 
     private static bool IsDefaultValue(object value) =>
         value == null ||
+        (value is string str && string.IsNullOrEmpty(str)) ||
         (value.GetType().IsValueType &&
         value.Equals(Activator.CreateInstance(value.GetType())));
+
 }

@@ -12,4 +12,9 @@ public class RoleRepository(IDbConnection dbConnection, IDbTransaction dbTransac
     {
         return await GetByIdAsync(id);
     }
+
+    public async Task<Role> GetRoleByCode(string code)
+    {
+        return await GetByFilterAsync(new Role { Code = code});
+    }
 }
