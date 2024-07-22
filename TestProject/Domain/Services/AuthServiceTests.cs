@@ -29,12 +29,12 @@ public class AuthServiceTests
             State = true
         };
 
-        _mockAuthServices.Setup(repo => repo.SingIn(userName, password, It.IsAny<Guid>()))
+        _mockAuthServices.Setup(repo => repo.SignIn(userName, password, It.IsAny<Guid>()))
                        .ReturnsAsync(expectedUser);
 
-        var result = await _mockAuthServices.Object.SingIn(userName, password, It.IsAny<Guid>());
+        var result = await _mockAuthServices.Object.SignIn(userName, password, It.IsAny<Guid>());
         Assert.That(result.Password, Is.EqualTo(expectedUser.Password));
-        _mockAuthServices.Verify(repo => repo.SingIn(userName, password, It.IsAny<Guid>()), Times.Once);
+        _mockAuthServices.Verify(repo => repo.SignIn(userName, password, It.IsAny<Guid>()), Times.Once);
     }
 
     [Test]
@@ -43,15 +43,15 @@ public class AuthServiceTests
         string strngException = "UserName or Password incorrect";
         FailCredentialsException failCredentials = new(strngException);
 
-        _mockAuthServices.Setup(repo => repo.SingIn(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<Guid>()))
+        _mockAuthServices.Setup(repo => repo.SignIn(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<Guid>()))
             .ThrowsAsync(failCredentials);
 
         var exception = Assert.ThrowsAsync<FailCredentialsException>(async () => 
-        await _mockAuthServices.Object.SingIn(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<Guid>()));
+        await _mockAuthServices.Object.SignIn(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<Guid>()));
 
         Assert.That(exception.Message, Is.EqualTo(strngException));
 
-        _mockAuthServices.Verify(repo => repo.SingIn(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<Guid>()), Times.Once);
+        _mockAuthServices.Verify(repo => repo.SignIn(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<Guid>()), Times.Once);
     }
 
 }
