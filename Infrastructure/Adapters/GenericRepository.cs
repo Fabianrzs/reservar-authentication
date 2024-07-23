@@ -102,7 +102,8 @@ public class GenericRepository<E>(IDbConnection dbConnection, IDbTransaction dbT
             if (IsSupportedSqlType(property.PropertyType))
             {
                 var value = property.GetValue(entity);
-                if (value != null && !IsDefaultValue(value))
+                if (value != null && (!IsDefaultValue(value) 
+                    || value.GetType() == typeof(bool)))
                 {
                     parameters.Add($"@{property.Name}", value);
                 }
@@ -128,7 +129,7 @@ public class GenericRepository<E>(IDbConnection dbConnection, IDbTransaction dbT
      type == typeof(byte[]);
 
     private static bool IsDefaultValue(object value) =>
-        value == null ||
+        value == null || 
         (value is string str && string.IsNullOrEmpty(str)) ||
         (value.GetType().IsValueType &&
         value.Equals(Activator.CreateInstance(value.GetType())));

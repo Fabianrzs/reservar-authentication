@@ -13,7 +13,7 @@ public class SessionRepository(IDbConnection dbConnection, IDbTransaction dbTran
     }
     public async Task<bool> CloseUserSession(Guid id)
     {
-        return await this.UpdateAsync(new Session { Id = id, Active = false});
+        return await this.UpdateAsync(new Session { Id = id, EndTime = DateTime.UtcNow, Active = false});
     }
 
 }

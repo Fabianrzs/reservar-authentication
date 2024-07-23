@@ -5,7 +5,7 @@ namespace Domain.Entities.Security;
 
 public class Session: IEntityBase<Guid>
 {
-    public Guid Id { get; set; } = new();
+    public Guid Id { get; set; }
     public DateTime StartTime { get; set; }
     public DateTime EndTime { get; set; }
     public Guid UserId { get; set; }

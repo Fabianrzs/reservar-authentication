@@ -5,4 +5,4 @@ namespace Application.UseCase.Security.Authentication.Commands.SignOut;
 
 public record SignOutCommand(
         Guid SessionId
-    ) : IRequest<ServiceResponse<AuthenticationDto>>;
+    ) : IRequest<ServiceResponse>;

@@ -69,6 +69,7 @@ public class AuthService(IUnitOfWork _unitOfWork)
         try
         {
             await _unitOfWork.SessionRepository.CloseUserSession(sessionId);
+            _unitOfWork.SaveChanges();
         }
         catch (Exception e)
         {
