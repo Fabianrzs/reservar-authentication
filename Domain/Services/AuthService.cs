@@ -7,6 +7,21 @@ namespace Domain.Services;
 [DomainService]
 public class AuthService(IUnitOfWork _unitOfWork)
 {
+    public async Task<User> UserById(Guid id)
+    {
+        try
+        {
+            var user = await _unitOfWork.AuthRepository.GetUserCredentials(id)
+                ?? throw new FailCredentialsException("Invalid refresh");
+            _unitOfWork.SaveChanges();
+            return user;
+        }
+        catch (Exception e)
+        {
+            _unitOfWork.Dispose();
+            throw new Exception(e.Message);
+        }
+    }
     public async Task<User> SignIn(string userName, string password, Guid sessionId)
     {
 		try

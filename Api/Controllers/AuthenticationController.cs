@@ -1,8 +1,8 @@
+using Application.UseCase.Security.Authentication.Commands.SignOut;
 using Application.UseCase.Security.Authentication.Commands.SingIn;
 using Application.UseCase.Security.Authentication.Commands.SignUp;
-using Application.UseCase.Security.Authentication.Commands.SignOut;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MediatR;
 using Domain.Exceptions;
 
 namespace Api.Controllers
@@ -24,6 +24,7 @@ namespace Api.Controllers
             return Ok(await _mediator.Send(signUpCommand));
         }
 
+        [Authorize]
         [HttpPost("SignOut")]
         public async Task<ActionResult> SingOut()
         {
