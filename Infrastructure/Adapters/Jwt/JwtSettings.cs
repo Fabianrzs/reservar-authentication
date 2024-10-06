@@ -1,4 +1,4 @@
-﻿namespace Infrastrunture.Adapters.Jwt;
+﻿namespace Infrastructure.Adapters.Jwt;
 
 public class JwtSettings
 {

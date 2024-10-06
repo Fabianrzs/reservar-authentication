@@ -1,11 +1,11 @@
 ﻿using Domain.Ports;
 using Infrastructura;
-using Infrastrunture.Adapters.Jwt;
+using Infrastructure.Adapters.Jwt;
 using Microsoft.Extensions.DependencyInjection;
 using Notes.Domain.Services.Base;
 using System.Reflection;
 
-namespace Infrastrunture.Extensions;
+namespace Infrastructure.Extensions;
 
 public static class ServiceExtensions
 {

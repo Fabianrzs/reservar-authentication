@@ -1,12 +1,12 @@
 ﻿using Domain.Ports;
-using Infrastrunture.Adapters.Jwt;
+using Infrastructure.Adapters.Jwt;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 
-namespace Infrastrunture.Extensions;
+namespace Infrastructure.Extensions;
 
 public static class JwtExtensions
 {

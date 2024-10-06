@@ -1,12 +1,11 @@
 ﻿using Authentication.Infrastrunture.Extensions;
 using Infrastructure.Extensions;
-using Infrastrunture.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Infrastrunture;
+namespace Infrastructure;
 
 public static class Startup
 {
@@ -20,9 +19,10 @@ public static class Startup
         services.AddValidator();
         services.AddSwagger();
         services.AddCorsPolicy();
+        services.AddControllers();
     }
 
-    public static void UseInfrastructure(this IApplicationBuilder app, IWebHostEnvironment env)
+    public static void UseInfrastructure(this WebApplication app, IWebHostEnvironment env)
     {
         app.UseCorsPolicy();
         app.UseSwaggers(env);
@@ -30,5 +30,6 @@ public static class Startup
         app.UseAuthentication();
         app.UseAuthorization();
         app.UseHttpsRedirection();
+        app.MapControllers();
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
 
-namespace Infrastrunture.Extensions;
+namespace Infrastructure.Extensions;
 
 public static class SwaggerExtensions
 {

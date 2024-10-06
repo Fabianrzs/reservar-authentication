@@ -1,6 +1,6 @@
 ﻿using Infrastructura.Middleware;
 using Microsoft.AspNetCore.Builder;
-namespace Infrastrunture.Extensions;
+namespace Infrastructure.Extensions;
 public static class MiddlewareExtensions
 {
     public static void UseExceptionMiddleware(this IApplicationBuilder app)

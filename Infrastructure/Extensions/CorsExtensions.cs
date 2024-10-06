@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Infrastrunture.Extensions;
+namespace Infrastructure.Extensions;
 
 public static class CorsExtensions
 {

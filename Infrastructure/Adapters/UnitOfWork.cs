@@ -1,7 +1,7 @@
 ﻿using Domain.Ports;
 using Domain.Ports.Repository;
 using Infrastructura.Adapters.Repository;
-using Infrastrunture.Adapters.Repository;
+using Infrastructure.Adapters.Repository;
 using System.Data;
 
 namespace Infrastructura.Adapters;

@@ -3,7 +3,7 @@ using Domain.Ports.Repository;
 using Infrastructura.Adapters;
 using System.Data;
 
-namespace Infrastrunture.Adapters.Repository;
+namespace Infrastructure.Adapters.Repository;
 
 public class RoleRepository(IDbConnection dbConnection, IDbTransaction dbTransaction) 
     : GenericRepository<Role>(dbConnection, dbTransaction), IRoleRepository

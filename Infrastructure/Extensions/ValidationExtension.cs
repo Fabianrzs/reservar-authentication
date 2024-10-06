@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using Infrastructura.Adapters;
 
-namespace Infrastrunture.Extensions;
+namespace Infrastructure.Extensions;
 
 public static class ValidationExtension
 {

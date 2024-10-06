@@ -7,7 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 
-namespace Infrastrunture.Adapters.Jwt;
+namespace Infrastructure.Adapters.Jwt;
 
 public class JwtService(IOptions<JwtSettings> jwtSettings) : IJwtServices
 {
