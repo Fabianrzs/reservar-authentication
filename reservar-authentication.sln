@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{57D88EE5-4468-4E31-BA92-549A58C4A866}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{27914819-8D27-4C23-8778-880903F0D544}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Api\Api.csproj", "{27914819-8D27-4C23-8778-880903F0D544}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

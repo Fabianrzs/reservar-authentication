@@ -15,8 +15,8 @@ namespace Api.Controllers
         [HttpPost("RefreshToken")]
         public async Task<ActionResult> RefreshToken()
         {
-            var sessionId = User.FindFirst("Session")!.Value ?? throw new NoContentException("Session No Defined");
             var userId = User.FindFirst("Id")!.Value ?? throw new NoContentException("Id No Defined");
+            var sessionId = User.FindFirst("Session")!.Value ?? throw new NoContentException("Session No Defined");
             return Ok(await _mediator.Send(new RefreshTokenCommand(Guid.Parse(sessionId), Guid.Parse(userId))));
         }
 
