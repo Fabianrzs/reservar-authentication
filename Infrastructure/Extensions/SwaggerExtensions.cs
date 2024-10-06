@@ -43,9 +43,9 @@ public static class SwaggerExtensions
     {
         if (env.IsDevelopment())
         {
+        }
             app.UseSwagger();
             app.UseSwaggerUI();
-        }
         return app;
     }
 }

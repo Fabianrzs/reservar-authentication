@@ -62,6 +62,7 @@
     <Folder Include="Sp\User" />
     <Folder Include="Sp\Session" />
     <Folder Include="Sp\Role" />
+    <Folder Include="Sp\PasswordResetRequest" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Role.sql" />
@@ -81,6 +82,10 @@
     <Build Include="Sp\Role\Update_Role.sql" />
     <Build Include="Tables\PasswordResetRequest.sql" />
     <PreDeploy Include="Scripts\Script.PreDeployment1.sql" />
+    <Build Include="Sp\PasswordResetRequest\Update_PasswordResetRequest.sql" />
+    <Build Include="Sp\PasswordResetRequest\Add_PasswordResetRequest.sql" />
+    <Build Include="Sp\PasswordResetRequest\Delete_PasswordResetRequest.sql" />
+    <Build Include="Sp\PasswordResetRequest\Select_PasswordResetRequest.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
