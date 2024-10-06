@@ -2,9 +2,11 @@
 
 namespace Domain.Ports;
 
-public interface IUnitOfWork : IDisposable
+public interface IUnitOfWork
 {
     IAuthRepository AuthRepository { get; }
     ISessionRepository SessionRepository { get; }
-    Task<int> SaveChangesAsync();
+    IRoleRepository RoleRepository { get; }
+    void SaveChanges();
+    void Dispose();
 }

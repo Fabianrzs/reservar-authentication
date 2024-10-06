@@ -6,5 +6,5 @@ public class DomainEntity
     //public DateTime CreatedUser { get; set; }
     public DateTime LastModifiedOn { get; set; }
     //public DateTime LastModifiedUser { get; set; }
-    public int State { get; set; } = 1;
+    public bool State { get; set; } = true;
 }

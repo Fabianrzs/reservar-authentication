@@ -7,6 +7,8 @@ public interface IGenericRepository<E>
 {
     Task<E> GetByIdAsync(Guid id);
     Task<IEnumerable<E>> GetAllAsync();
+    Task<E> GetByFilterAsync(E filter);
+    Task<IEnumerable<E>> GetAllFilterAsync(E filter);
     Task<bool> AddAsync(E entity);
     Task<bool> UpdateAsync(E entity);
     Task<bool> DeleteAsync(Guid id);
