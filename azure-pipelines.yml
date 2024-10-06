@@ -1,0 +1,75 @@
+parameters:
+- name: projectName
+  type: string
+  default: Api
+- name: buildConfiguration
+  type: string
+  default: Release
+
+trigger:
+  branches:
+    include:
+      - 'feature/*'
+      - 'dev'
+      - 'release'
+      - 'master'
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+# Install .NET SDK
+- task: UseDotNet@2
+  displayName: 'Install .NET Core SDK 8.x'
+  inputs:
+    packageType: 'sdk'
+    version: '8.x'
+
+# Restore all project dependencies (for the entire solution)
+- script: |
+    echo "Restoring all project dependencies for the solution"
+    dotnet restore reservar-authentication.sln
+  displayName: 'Restore dependencies for the solution'
+
+# Build the Api project
+- script: |
+    echo "Building $(parameters.projectName)"
+    dotnet build Api/Api.csproj --configuration $(parameters.buildConfiguration)
+  displayName: 'Build $(parameters.projectName) project in $(parameters.buildConfiguration) configuration'
+
+# Run unit tests (TestProject folder)
+- script: |
+    echo "Running tests for TestProject"
+    dotnet test TestProject/TestProject.csproj --configuration $(parameters.buildConfiguration)
+  displayName: 'Run tests for TestProject'
+
+# --- Temporarily Disabled: SonarCloud analysis ---
+# # Prepare SonarCloud analysis
+# - task: SonarCloudPrepare@1
+#   inputs:
+#     SonarCloud: 'SonarCloudServiceConnection'
+#     organization: 'your-organization-key'
+#     scannerMode: 'MSBuild'
+#     projectKey: '$(parameters.projectName)'
+#     projectName: '$(parameters.projectName)'
+#   displayName: 'Prepare SonarCloud analysis for $(parameters.projectName)'
+
+# # Execute SonarCloud analysis
+# - task: SonarCloudAnalyze@1
+#   displayName: 'Run SonarCloud analysis for $(parameters.projectName)'
+
+# # Publish SonarCloud results
+# - task: SonarCloudPublish@1
+#   displayName: 'Publish SonarCloud results for $(parameters.projectName)'
+#   inputs:
+#     pollingTimeoutSec: '300'
+
+# --- Temporarily Disabled: Snyk scan ---
+# # Execute Snyk scan
+# - script: |
+#     echo "Executing Snyk Scan"
+#     snyk auth $(snykToken)
+#     snyk test --all-projects
+#   displayName: 'Run Snyk Scan for $(parameters.projectName)'
+#   env:
+#     SNYK_TOKEN: $(snykToken)
