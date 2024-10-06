@@ -4,6 +4,8 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 ENV ASPNETCORE_URLS=http://+:80;https://+:443
+# Local, Development, Staging
+ENV ASPNETCORE_ENVIRONMENT=Local
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
