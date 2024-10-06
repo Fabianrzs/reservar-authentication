@@ -4,7 +4,7 @@ namespace Domain.Ports.Repository;
 
 public interface ISessionRepository: IGenericRepository<Session>
 {
-    public Task<Session> CreateUserSession(Session session);
-    public Task CloseUserSession(Guid id);
+    public Task<bool> CreateUserSession(Session session);
+    public Task<bool> CloseUserSession(Guid id);
 
 }

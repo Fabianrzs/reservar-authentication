@@ -57,8 +57,37 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Scripts" />
-    <Folder Include="Security" />
     <Folder Include="Tables" />
     <Folder Include="Sp" />
+    <Folder Include="Sp\User" />
+    <Folder Include="Sp\Session" />
+    <Folder Include="Sp\Role" />
+    <Folder Include="Sp\PasswordResetRequest" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Tables\Role.sql" />
+    <Build Include="Tables\User.sql" />
+    <Build Include="Tables\Session.sql" />
+    <Build Include="Sp\User\Select_User.sql" />
+    <Build Include="Sp\User\Add_User.sql" />
+    <Build Include="Sp\User\Update_User.sql" />
+    <Build Include="Sp\User\Delete_User.sql" />
+    <Build Include="Sp\Session\Select_Session.sql" />
+    <Build Include="Sp\Session\Add_Session.sql" />
+    <Build Include="Sp\Session\Update_Session.sql" />
+    <Build Include="Sp\Session\Delete_Session.sql" />
+    <Build Include="Sp\Role\Add_Role.sql" />
+    <Build Include="Sp\Role\Delete_Role.sql" />
+    <Build Include="Sp\Role\Select_Role.sql" />
+    <Build Include="Sp\Role\Update_Role.sql" />
+    <Build Include="Tables\PasswordResetRequest.sql" />
+    <PreDeploy Include="Scripts\Script.PreDeployment1.sql" />
+    <Build Include="Sp\PasswordResetRequest\Update_PasswordResetRequest.sql" />
+    <Build Include="Sp\PasswordResetRequest\Add_PasswordResetRequest.sql" />
+    <Build Include="Sp\PasswordResetRequest\Delete_PasswordResetRequest.sql" />
+    <Build Include="Sp\PasswordResetRequest\Select_PasswordResetRequest.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
   </ItemGroup>
 </Project>
